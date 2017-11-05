@@ -11,6 +11,12 @@ window.axios = require('axios');
 window.jQuery = require('jquery');
 window.admin_lte = require('admin-lte');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.HTTP = window.axios.create({
+  baseURL: window.endpoint + '/api/v1/',
+  headers: {
+    Authorization: localStorage.getItem("token")
+  }
+})
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -28,6 +34,7 @@ import System from './components/System.vue'
 import Sell from './components/system/content/Sell.vue'
 import Products from './components/system/content/Products.vue'
 
+import store from './store'
 
 Vue.use(VueRouter);
 
@@ -70,6 +77,7 @@ Vue.use(VBClass, router);
 new Vue({
     router,
     el: '#app',
+    store,
     data(){
         return {
             order_details: {}

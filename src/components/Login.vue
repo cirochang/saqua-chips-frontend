@@ -7,13 +7,13 @@
     <div class="login-box-body">
       <p class="login-box-msg">Logue-se para iniciar sua sessão</p>
 
-      <form action="../../index2.html" method="post">
+      <form @submit.prevent="login({ username, password })">
         <div class="form-group has-feedback">
-          <input type="email" class="form-control" placeholder="Usuário">
+          <input type="name" class="form-control" placeholder="Usuário" v-model="username">
           <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-          <input type="password" class="form-control" placeholder="Senha">
+          <input type="password" class="form-control" placeholder="Senha" v-model="password">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
@@ -41,5 +41,23 @@
 
   export default {
 
+    data() {
+      return {
+        username: "",
+        password: ""
+      }
+    },
+    methods: {
+      login() {
+        this.$store.dispatch("login", {
+          username: this.username,
+          password: this.password
+        }).then(() => {
+          this.$router.push("/")
+        });
+      }
+    }
+
   }
+
 </script>
