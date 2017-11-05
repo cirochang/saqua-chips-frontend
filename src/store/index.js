@@ -29,15 +29,13 @@ export default new Vuex.Store({
       return new Promise(resolve => {
         window.HTTP.post('authenticate', data)
         .then(response => {
-          console.log(response)
-          //this.posts = response.data
+          localStorage.setItem("token", response.data.token);
+          commit(LOGIN_SUCCESS);
+          resolve();
         })
         .catch(e => {
           this.errors.push(e)
         })
-        localStorage.setItem("token", "JWT");
-        commit(LOGIN_SUCCESS);
-        resolve();
       });
     },
     logout({ commit }) {
