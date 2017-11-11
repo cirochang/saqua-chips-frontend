@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {SAQUA_BACK} from '../gateways/saqua_back'
 
 const LOGIN = "LOGIN";
 const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -26,15 +27,14 @@ export default new Vuex.Store({
   actions: {
     login({ commit }, data) {
       commit(LOGIN); // show spinner
-      return new Promise(resolve => {
-        window.HTTP.post('authenticate', data)
-        .then(response => {
+      return new Promise( (resolve, reject) => {
+        SAQUA_BACK.post('authenticate', data).then(response => {
           localStorage.setItem("token", response.data.token);
           commit(LOGIN_SUCCESS);
           resolve();
         })
-        .catch(e => {
-          this.errors.push(e)
+        .catch(error => {
+          reject(error);
         })
       });
     },
@@ -46,6 +46,6 @@ export default new Vuex.Store({
   getters: {
     isLoggedIn: state => {
       return state.isLoggedIn
-     }
+    }
   }
 })

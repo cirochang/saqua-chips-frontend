@@ -1,22 +1,9 @@
-// Environment configuration
-if (process.env.NODE_ENV === 'production') {
-    window.endpoint = 'http://localhost:3000';
-} else {
-    window.endpoint = 'http://localhost:3000';
-}
-
 // Global Variables
 window.moment = require('moment');
 window.axios = require('axios');
 window.jQuery = require('jquery');
 window.admin_lte = require('admin-lte');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.HTTP = window.axios.create({
-  baseURL: window.endpoint + '/api/v1/',
-  headers: {
-    Authorization: localStorage.getItem("token")
-  }
-})
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -24,7 +11,7 @@ import VBClass from 'vue-body-class'
 import jquery from 'jquery'
 import bootstrap from 'bootstrap'
 
-import App from './components/App.vue'
+import App from './App.vue'
 import Product from './components/Product.vue'
 import Order from './components/Order.vue'
 import Complete from './components/Complete.vue'
@@ -42,7 +29,7 @@ Vue.use(VueRouter);
 
 // Register routes
 const routes = [
-  { name: 'home', path: '/', component: Home,
+  { path: '/', component: Home,
     children: [
       {
         path: '',
@@ -65,7 +52,6 @@ const router = new VueRouter({
 });
 
 Vue.use(VBClass, router);
-
 
 // Instantiate application to the DOM
 new Vue({

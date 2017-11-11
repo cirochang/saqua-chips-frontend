@@ -1,20 +1,21 @@
 <template>
   <div class="login-box">
     <div class="login-logo">
-      <a href="../../index2.html"><b>Saqua</b>Chips</a>
+      <b>Saqua</b>Chips
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
       <p class="login-box-msg">Logue-se para iniciar sua sessão</p>
 
-      <form @submit.prevent="login({ username, password })">
+      <form @submit.prevent="login({ username, password })" data-toggle="validator">
         <div class="form-group has-feedback">
-          <input type="name" class="form-control" placeholder="Usuário" v-model="username">
+          <input type="text" class="form-control" placeholder="Usuário" v-model="username">
           <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
-        <div class="form-group has-feedback">
+        <div class="form-group has-feedback" v-bind:class="classErrPass">
           <input type="password" class="form-control" placeholder="Senha" v-model="password">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <span class="help-block red">{{errPassMsg}}</span>
         </div>
         <div class="row">
           <div class="col-xs-8">
@@ -44,7 +45,11 @@
     data() {
       return {
         username: "",
-        password: ""
+        password: "",
+        classErrPass: {
+          'has-error': false,
+        },
+        errPassMsg: "",
       }
     },
     methods: {
@@ -53,7 +58,11 @@
           username: this.username,
           password: this.password
         }).then(() => {
-          this.$router.push("/")
+          this.$router.push("/");
+        }).catch((error) => {
+          this.classErrPass['has-error'] = true;
+          this.errPassMsg = error.response.data;
+          this.password = "";
         });
       }
     }

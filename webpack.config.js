@@ -15,6 +15,9 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
+            js: {
+               loader: 'babel-loader'
+            },
           }
           // other vue-loader options go here
         }
@@ -47,6 +50,9 @@ module.exports = {
   performance: {
     hints: false
   },
+  node: {
+    fs: "empty"
+  },
   devtool: '#eval-source-map'
 }
 
@@ -55,9 +61,7 @@ if (process.env.NODE_ENV === 'production') {
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
+      'process.env': require('./env')
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
@@ -69,4 +73,10 @@ if (process.env.NODE_ENV === 'production') {
       minimize: true
     })
   ])
+}else{
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': require('./env')
+    })
+  ]);
 }
