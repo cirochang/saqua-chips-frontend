@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div class="wrapper">
     <v-header></v-header>
     <v-side-bar></v-side-bar>
     <router-view></router-view>
     <v-footer></v-footer>
-    <v-control-side-bar></v-control-side-bar>
   </div>
 </template>
 
@@ -12,14 +11,22 @@
 import Header from './system/Header.vue'
 import SideBar from './system/SideBar.vue'
 import Footer from './system/Footer.vue'
-import ControlSideBar from './system/ControlSideBar.vue'
 
 export default {
   components: {
     'v-header': Header,
     'v-side-bar': SideBar,
-    'v-footer': Footer,
-    'v-control-side-bar': ControlSideBar
+    'v-footer': Footer
+  },
+  beforeCreate: function () {
+    this.$store.dispatch("setCurrentUser").then(() => {
+      // nothing to do
+    }).catch((error) => {
+      console.log(error);
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/");
+      });
+    });
   }
 }
 </script>
