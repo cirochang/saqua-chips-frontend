@@ -12,14 +12,12 @@ import jquery from 'jquery'
 import bootstrap from 'bootstrap'
 
 import App from './App.vue'
-import Product from './components/Product.vue'
-import Order from './components/Order.vue'
-import Complete from './components/Complete.vue'
 import Login from './components/Login.vue'
 import Home from './components/Home.vue'
 
 import System from './components/System.vue'
 import Sell from './components/system/content/Sell.vue'
+import LastestDemands from './components/system/content/LastestDemands.vue'
 import Products from './components/system/content/Products.vue'
 
 import store from './store'
@@ -32,14 +30,22 @@ const routes = [
   { path: '/', component: Home,
     children: [
       {
+        name: 'Default',
         path: '',
         component: Sell
       },
       {
+        name: 'Sell',
         path: 'sell',
         component: Sell
       },
       {
+        name: 'Lastest Demands',
+        path: 'lastest_demands',
+        component: LastestDemands
+      },
+      {
+        name: 'Produtos',
         path: 'products',
         component: Products
       }

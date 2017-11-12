@@ -29,14 +29,7 @@ export default {
         }
       }
     },
-  },
-  /*,
-  computed: {
-    isLoggedIn: function () {
-     // `this` aponta para a instância Vue da variável `vm`
-     return   this.$store.getters.isLoggedIn;
-    }
-  }*/
+  }
 
 }
 </script>
