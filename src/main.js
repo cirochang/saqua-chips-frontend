@@ -19,6 +19,8 @@ import System from './components/System.vue'
 import Sell from './components/system/content/Sell.vue'
 import LastestDemands from './components/system/content/LastestDemands.vue'
 import Products from './components/system/content/Products.vue'
+import Users from './components/system/content/Users.vue'
+
 
 import store from './store'
 
@@ -45,10 +47,15 @@ const routes = [
         component: LastestDemands
       },
       {
-        name: 'Produtos',
+        name: 'Products',
         path: 'products',
         component: Products
-      }
+      },
+      {
+        name: 'Users',
+        path: 'users',
+        component: Users
+      },
    ]
   }
 ];

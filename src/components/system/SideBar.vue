@@ -16,6 +16,16 @@
               <i class="fa fa-dollar"></i> <span>Caixa</span>
             </router-link>
           </li>
+          <li class="treeview" v-bind:class="{ active: routeName() == 'Products' }">
+            <router-link to="products">
+              <i class="fa fa-dollar"></i> <span>Produtos</span>
+            </router-link>
+          </li>
+          <li class="treeview" v-bind:class="{ active: routeName() == 'Users' }">
+            <router-link to="users">
+              <i class="fa fa-users"></i> <span>Usuários</span>
+            </router-link>
+          </li>
         </ul>
       </section>
       <!-- /.sidebar -->

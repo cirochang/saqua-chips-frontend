@@ -62,10 +62,10 @@ export default new Vuex.Store({
   },
   getters: {
     isLoggedIn: state => {
-      return state.isLoggedIn
+      return state.isLoggedIn;
     },
     currentUser: state => {
-      return state.currentUser
+      return state.currentUser;
     }
   }
 })
