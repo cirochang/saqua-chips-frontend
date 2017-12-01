@@ -19,8 +19,8 @@ import System from './components/System.vue'
 import Sell from './components/system/content/Sell.vue'
 import LastestDemands from './components/system/content/LastestDemands.vue'
 import Products from './components/system/content/Products.vue'
+import Aloha from './components/system/content/Aloha.vue'
 import Users from './components/system/content/Users.vue'
-
 
 import store from './store'
 
@@ -34,7 +34,7 @@ const routes = [
       {
         name: 'Default',
         path: '',
-        component: Sell
+        component: Aloha
       },
       {
         name: 'Sell',
@@ -50,6 +50,11 @@ const routes = [
         name: 'Products',
         path: 'products',
         component: Products
+      },
+      {
+        name: 'Aloha',
+        path: 'aloha',
+        component: Aloha
       },
       {
         name: 'Users',

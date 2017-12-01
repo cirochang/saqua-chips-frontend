@@ -26,6 +26,11 @@
               <i class="fa fa-users"></i> <span>Usuários</span>
             </router-link>
           </li>
+          <li class="treeview" v-bind:class="{ active: routeName() == 'Aloha' }">
+            <router-link to="aloha">
+              <i class="fa fa-users"></i> <span>Aloha</span>
+            </router-link>
+          </li>
         </ul>
       </section>
       <!-- /.sidebar -->

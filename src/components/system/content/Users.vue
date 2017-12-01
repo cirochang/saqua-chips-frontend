@@ -24,6 +24,12 @@
           </div>
           <div class="box-body">
 
+            <router-link :to="{name: 'User Create'}">
+              <a class="btn btn-app">
+                <i class="fa fa-plus"></i> Criar Novo Usuário
+              </a>
+            </router-link>
+
             <div class="row">
               <div class="col-xs-12 table-responsive">
                 <table class="table table-striped">
@@ -32,15 +38,21 @@
                     <th>Nome</th>
                     <th>Username</th>
                     <th>Data de Criação</th>
-                    <th>Data da última atualização</th>
+                    <th>Última atualização</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr v-for="user in users">
                     <td>{{user.first_name}} {{user.last_name}}</td>
                     <td>{{user.username}}</td>
-                    <td>{{moment(user.created_at).locale('pt-br').format('DD/MM/YY, HH:mm:ss')}}</td>
-                    <td>{{moment(user.updated_at).locale('pt-br').format('DD/MM/YY, HH:mm:ss')}}</td>
+                    <td>{{formatDate(user.created_at)}}</td>
+                    <td>{{formatDate(user.updated_at)}}</td>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-warning">Editar</button>
+                        <button type="button" class="btn btn-warning">Deletar</button>
+                      </div>
+                    </td>
                   </tr>
                   </tbody>
                 </table>
@@ -57,7 +69,7 @@
 
 <script>
 import moment from 'moment';
-import {SAQUA_BACK} from '@/gateways/saqua_back'
+import {SAQUA_BACK} from '@/gateways/saqua_back';
 
 
 export default {
@@ -67,17 +79,11 @@ export default {
     }
   },
   methods: {
-    logout() {
-      this.$store.dispatch("logout").then(() => {
-        this.$router.push("/");
-      });
-    },
-    routeName() {
-      return this.$route.name;
+    formatDate(date) {
+      return moment(date).locale('pt-br').format('DD/MM/YY, HH:mm:ss');
     }
   },
   beforeCreate: function () {
-    this.moment = moment;
     SAQUA_BACK.get('users').then(response => {
       this.users = response.data;
     })

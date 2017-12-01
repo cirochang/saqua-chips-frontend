@@ -61,8 +61,12 @@
           this.$router.push("/");
         }).catch((error) => {
           this.classErrPass['has-error'] = true;
-          this.errPassMsg = error.response.data;
           this.password = "";
+          if(error.message == 'Network Error'){
+            this.errPassMsg = 'O Sistema de backend está desligado';
+          }else{
+            this.errPassMsg = error.response.data;
+          }
         });
       }
     }
