@@ -24,7 +24,7 @@
           </div>
           <div class="box-body">
 
-            <router-link :to="{name: 'User Create'}">
+            <router-link :to="{name: 'Users Create'}">
               <a class="btn btn-app">
                 <i class="fa fa-plus"></i> Criar Novo Usuário
               </a>
