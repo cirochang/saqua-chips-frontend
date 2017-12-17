@@ -65,6 +65,10 @@ export default new Vuex.Store({
       return state.isLoggedIn;
     },
     currentUser: state => {
+      state.currentUser.hasAccess = (role) => {
+        let roles = ['employee', 'manager', 'director', 'developer'];
+        return roles.indexOf(state.currentUser.role) >= roles.indexOf(role);
+      };
       return state.currentUser;
     }
   }

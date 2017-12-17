@@ -54,13 +54,13 @@ const routes = [
       {
         name: 'Users',
         path: 'users',
-        component: Users
+        component: Users,
       },
       {
         name: 'Users Create',
         path: 'users/create',
-        component: UsersCreate
-      }
+        component: UsersCreate,
+      },
    ]
   }
 ];
