@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-if="userIsSet">
     <v-header></v-header>
     <v-side-bar></v-side-bar>
     <router-view></router-view>
@@ -13,6 +13,11 @@ import SideBar from './system/SideBar.vue'
 import Footer from './system/Footer.vue'
 
 export default {
+  data() {
+    return {
+      userIsSet: false
+    }
+  },
   components: {
     'v-header': Header,
     'v-side-bar': SideBar,
@@ -20,6 +25,7 @@ export default {
   },
   beforeCreate: function () {
     this.$store.dispatch("setCurrentUser").then(() => {
+      this.userIsSet = true;
       // nothing to do
     }).catch((error) => {
       console.log(error);
