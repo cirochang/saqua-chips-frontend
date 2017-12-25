@@ -18,13 +18,7 @@
           <span class="help-block red">{{errPassMsg}}</span>
         </div>
         <div class="row">
-          <div class="col-xs-8">
-            <div class="checkbox icheck">
-              <label>
-                <input type="checkbox"> Lembrar de mim
-              </label>
-            </div>
-          </div>
+          
           <!-- /.col -->
           <div class="col-xs-4">
             <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
