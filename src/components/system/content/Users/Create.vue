@@ -83,7 +83,6 @@
 <script>
 import {SAQUA_BACK} from '@/gateways/saqua_back';
 
-
    export default {
      data() {
        return {
@@ -100,18 +99,24 @@ import {SAQUA_BACK} from '@/gateways/saqua_back';
      },
      methods: {
        createNewUser() {
-         console.log('oi')
          //var SAQUA_BACK_MULTIFORM = SAQUA_BACK;
          //console.log(SAQUA_BACK_MULTIFORM);
          //SAQUA_BACK_MULTIFORM.headers['content-type'] = 'multipart/form-data';
 
-         const formData = new FormData(this.newUser);
+         const formData = new FormData();
+         for(var key in this.newUser) {
+           formData.append(key, this.newUser[key]);
+         }
          formData.append('avatar', this.avatar);
-         console.log(formData);
          SAQUA_BACK.post('users', formData).then(response => {
-           alert('foi');
+           this.$notify({
+              group: 'foo',
+              title: `Novo Usuário Criado`,
+              text: `O usuário ${this.newUser.firstName} foi criado com sucesso!`
+            });
+            this.$router.push("/users");
          }).catch(error => {
-            alert('error');
+            alert(error.message);
          })
        },
        processFile() {

@@ -10,6 +10,7 @@ import VueRouter from 'vue-router'
 import VBClass from 'vue-body-class'
 import jquery from 'jquery'
 import bootstrap from 'bootstrap'
+import Notifications from 'vue-notification'
 
 import App from './App.vue'
 import Login from './components/Login.vue'
@@ -24,8 +25,8 @@ import UsersCreate from './components/system/content/Users/Create.vue'
 
 import store from './store'
 
+Vue.use(Notifications);
 Vue.use(VueRouter);
-
 
 // Register routes
 const routes = [

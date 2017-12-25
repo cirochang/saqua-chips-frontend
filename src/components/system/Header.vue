@@ -26,14 +26,14 @@
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="http://pudim.com.br/pudim.jpg" class="user-image" alt="User Image">
-                <span class="hidden-xs">{{currentUser.first_name}} {{currentUser.last_name}}</span>
+                <span class="hidden-xs">{{currentUser.firstName}} {{currentUser.lastName}}</span>
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
                   <img src="http://pudim.com.br/pudim.jpg" class="img-circle" alt="User Image">
                   <p>
-                    {{currentUser.first_name}} {{currentUser.last_name}} - Web Developer
+                    {{currentUser.firstName}} {{currentUser.lastName}} - Web Developer
                     <small>Membro desde {{ currentUser.created_at }}</small>
                   </p>
                 </li>

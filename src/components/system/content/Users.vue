@@ -43,7 +43,7 @@
                   </thead>
                   <tbody>
                   <tr v-for="user in users">
-                    <td>{{user.first_name}} {{user.last_name}}</td>
+                    <td>{{user.firstName}} {{user.lastName}}</td>
                     <td>{{user.username}}</td>
                     <td>{{formatDate(user.created_at)}}</td>
                     <td>{{formatDate(user.updated_at)}}</td>
