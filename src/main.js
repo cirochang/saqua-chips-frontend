@@ -21,7 +21,7 @@ import Sell from './components/system/content/Sell.vue'
 import LastestDemands from './components/system/content/LastestDemands.vue'
 import Products from './components/system/content/Products.vue'
 import Users from './components/system/content/Users.vue'
-import UsersCreate from './components/system/content/Users/Create.vue'
+import UsersCreateEdit from './components/system/content/Users/CreateEdit.vue'
 
 import store from './store'
 
@@ -60,7 +60,12 @@ const routes = [
       {
         name: 'Users Create',
         path: 'users/create',
-        component: UsersCreate,
+        component: UsersCreateEdit,
+      },
+      {
+        name: 'Users Edit',
+        path: 'users/edit/:userId',
+        component: UsersCreateEdit,
       },
    ]
   }

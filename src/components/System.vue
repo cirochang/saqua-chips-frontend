@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper" v-if="userIsSet">
-    <notifications group="foo" />
+    <notifications group="system" />
     <v-header></v-header>
     <v-side-bar></v-side-bar>
     <router-view></router-view>

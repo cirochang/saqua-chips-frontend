@@ -63,19 +63,6 @@ export default new Vuex.Store({
         })
       });
     },
-    createNewUser({ commit }, {data, avatar}) {
-      return Promise( (resolve, reject) => {
-        var SAQUA_BACK_MULTIFORM = SAQUA_BACK;
-        SAQUA_BACK_MULTIFORM.headers['content-type'] = 'multipart/form-data';
-        const formData = new FormData(data);
-        formData.append('avatar', avatar);
-        SAQUA_BACK.post('users', formData).then(response => {
-          resolve();
-        }).catch(error => {
-          reject(error);
-        })
-      });
-    }
   },
   getters: {
     isLoggedIn: state => {

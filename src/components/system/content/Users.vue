@@ -49,8 +49,8 @@
                     <td>{{formatDate(user.updated_at)}}</td>
                     <td>
                       <div class="btn-group">
-                        <button type="button" class="btn btn-warning">Editar</button>
-                        <button type="button" class="btn btn-warning">Deletar</button>
+                        <router-link tag="button" :to="{name: 'Users Edit', params: { userId: user._id }}" type="button" class="btn btn-warning" v-on:click='editUser(user)'>Editar</router-link>
+                        <button type="button" class="btn btn-warning" v-on:click='removeUser(user)'>Deletar</button>
                       </div>
                     </td>
                   </tr>
@@ -70,6 +70,7 @@
 <script>
 import moment from 'moment';
 import {SAQUA_BACK} from '@/gateways/saqua_back';
+import swal from 'sweetalert'
 
 
 export default {
@@ -81,15 +82,45 @@ export default {
   methods: {
     formatDate(date) {
       return moment(date).locale('pt-br').format('DD/MM/YY, HH:mm:ss');
+    },
+    refreshUsers() {
+      SAQUA_BACK.get('users').then(response => {
+        this.users = response.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    },
+    removeUser(user) {
+      swal({
+        title: "Tem certeza?",
+        text: `Deseja mesmo deletar o usuário ${user.username}?`,
+        icon: "warning",
+        dangerMode: true,
+        buttons: {
+          cancel: true,
+          confirm: true,
+        },
+      })
+      .then(willDelete => {
+        if (willDelete) {
+          SAQUA_BACK.delete(`users/${user._id}`).then(response => {
+            swal("Deletado!", "O usuário foi deletado com sucesso!", "success");
+            this.refreshUsers();
+          })
+          .catch(error => {
+            console.error(error);
+          })
+        }
+      });
+
+    },
+    editUser(){
+
     }
   },
-  beforeCreate: function () {
-    SAQUA_BACK.get('users').then(response => {
-      this.users = response.data;
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  }
+  beforeMount: function () {
+    this.refreshUsers();
+  },
 }
 </script>
