@@ -21,7 +21,7 @@
               <i class="fa fa-dollar"></i> <span>Produtos</span>
             </router-link>
           </li>
-          <li class="treeview" v-if="currentUser.hasAccess('manager')" v-bind:class="{ active: hasUrlPath('users', 1) }">
+          <li class="treeview" v-if="currentUser.hasAccess('manager')" v-bind:class="{ active: hasUrlPath('users', 1), 'menu-open': hasUrlPath('users', 1) }">
             <router-link :to="{name: 'Usuários'}">
               <i class="fa fa-users"></i> <span>Usuários</span>
               <span class="pull-right-container">
@@ -29,7 +29,7 @@
               </span>
             </router-link>
             <ul class="treeview-menu">
-              <li v-bind:class="{ active: hasUrlPath('create', 2) }">
+              <li v-bind:class="{ active: hasUrlPath('create', 2)}">
                 <router-link :to="{name: 'Criar Novo Usuário'}">
                   <i class="fa fa-circle-o"></i>
                    Criar Novo Usuário
