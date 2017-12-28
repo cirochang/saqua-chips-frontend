@@ -1,5 +1,15 @@
 <template>
-
+   <div id='v-content-users'>
+      <div class="content-wrapper">
+         <!-- Content Header (Page header) -->
+         <section class="content-header">
+            <h1>
+               {{this.page.title}}
+            </h1>
+            <ol class="breadcrumb">
+               <li class="active"><a href="#"><i class="fa fa-users"></i> Criar Novo Grupo de Produto</a></li>
+            </ol>
+         </section>
          <!-- Main content -->
          <section class="content">
             <div class="box box-default">
@@ -67,7 +77,8 @@
                </div>
             </div>
          </section>
-
+      </div>
+   </div>
 </template>
 
 <script>
@@ -84,6 +95,7 @@ import {SAQUA_BACK} from '@/gateways/saqua_back';
          errors: {},
          isCreatePage: true,
          page: {
+           title: 'Criar Novo Usuário',
            submit: {
              func: this.createNewUser,
              text: 'Criar'
@@ -148,6 +160,7 @@ import {SAQUA_BACK} from '@/gateways/saqua_back';
            this.user = response.data;
            this.imageSrc = `${process.env.SAQUA_BACK_URI}/api/v1/users/${this.$route.params.userId}/avatar`;
            this.page = {
+             title: 'Editar Usuário',
              submit: {
                func: this.updateUser,
                text: 'Atualizar'

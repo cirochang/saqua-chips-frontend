@@ -13,12 +13,24 @@ import System from './System.vue'
 import { mapGetters } from 'vuex'
 
 export default {
+  data() {
+      return {
+          vm: this
+      }
+  },
   components: {
     'v-login': Login,
     'v-system': System
   },
   computed: mapGetters(['isLoggedIn']),
   watch: {
+    $route: {
+        immediate: true,
+        handler(newVal, oldVal) {
+          if(newVal.fullPath === '/')
+            this.vm.$router.push({ path: 'sell'});
+        }
+    },
     isLoggedIn: {
       immediate: true,
       handler(newVal, oldVal) {

@@ -1,7 +1,7 @@
 <template>
   <div class="login-box">
     <div class="login-logo">
-      <b>Saqua</b>Chips
+      <b>Admin</b>LTE
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -18,7 +18,7 @@
           <span class="help-block red">{{errPassMsg}}</span>
         </div>
         <div class="row">
-          
+
           <!-- /.col -->
           <div class="col-xs-4">
             <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>

@@ -3,7 +3,7 @@
     <notifications group="system" />
     <v-header></v-header>
     <v-side-bar></v-side-bar>
-    <router-view></router-view>
+    <v-pre-content></v-pre-content>
     <v-footer></v-footer>
   </div>
 </template>
@@ -12,6 +12,7 @@
 import Header from './system/Header.vue'
 import SideBar from './system/SideBar.vue'
 import Footer from './system/Footer.vue'
+import PreContent from './system/PreContent.vue'
 
 export default {
   data() {
@@ -22,12 +23,12 @@ export default {
   components: {
     'v-header': Header,
     'v-side-bar': SideBar,
-    'v-footer': Footer
+    'v-footer': Footer,
+    'v-pre-content': PreContent
   },
   beforeCreate: function () {
     this.$store.dispatch("setCurrentUser").then(() => {
       this.userIsSet = true;
-      // nothing to do
     }).catch((error) => {
       console.log(error);
       this.$store.dispatch("logout").then(() => {

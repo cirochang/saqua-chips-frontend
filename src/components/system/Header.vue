@@ -2,11 +2,11 @@
   <div id='v-header'>
     <header class="main-header">
       <!-- Logo -->
-      <router-link :to="{ name: 'Default'}" class="logo">
+      <router-link :to="{ name: 'Home'}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>S</b>C</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Saqua</b>Chips</span>
+        <span class="logo-lg"><b>Admin</b>LTE</span>
       </router-link>
 
       <!-- Header Navbar: style can be found in header.less -->

@@ -7,22 +7,22 @@
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">NAVEGAÇÃO PRINCIPAL</li>
           <li class="treeview" v-bind:class="{ active: hasUrlPath('lastest_demands', 1)}">
-            <router-link :to="{name: 'Lastest Demands'}">
+            <router-link :to="{name: 'Últimas Demandas'}">
               <i class="fa fa-th-list"></i> <span>Últimos Pedidos</span>
             </router-link>
           </li>
           <li class="treeview" v-bind:class="{ active: hasUrlPath('sell', 1) }">
-            <router-link :to="{name: 'Sell'}">
+            <router-link :to="{name: 'Caixa'}">
               <i class="fa fa-dollar"></i> <span>Caixa</span>
             </router-link>
           </li>
           <li class="treeview" v-bind:class="{ active: hasUrlPath('products', 1) }">
-            <router-link :to="{name: 'Products'}">
+            <router-link :to="{name: 'Produtos'}">
               <i class="fa fa-dollar"></i> <span>Produtos</span>
             </router-link>
           </li>
           <li class="treeview" v-if="currentUser.hasAccess('manager')" v-bind:class="{ active: hasUrlPath('users', 1) }">
-            <router-link :to="{name: 'Users'}">
+            <router-link :to="{name: 'Usuários'}">
               <i class="fa fa-users"></i> <span>Usuários</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -30,7 +30,7 @@
             </router-link>
             <ul class="treeview-menu">
               <li v-bind:class="{ active: hasUrlPath('create', 2) }">
-                <router-link :to="{name: 'Users Create'}">
+                <router-link :to="{name: 'Criar Novo Usuário'}">
                   <i class="fa fa-circle-o"></i>
                    Criar Novo Usuário
                  </router-link>

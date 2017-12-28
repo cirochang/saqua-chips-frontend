@@ -30,40 +30,37 @@ Vue.use(VueRouter);
 
 // Register routes
 const routes = [
-  { path: '/', component: Home,
+  { path: '/',
+    component: Home,
+    name: 'Home',
     children: [
       {
-        name: 'Default',
-        path: '',
-        component: Sell
-      },
-      {
-        name: 'Sell',
+        name: 'Caixa',
         path: 'sell',
         component: Sell
       },
       {
-        name: 'Lastest Demands',
+        name: 'Últimas Demandas',
         path: 'lastest_demands',
         component: LastestDemands
       },
       {
-        name: 'Products',
+        name: 'Produtos',
         path: 'products',
         component: Products
       },
       {
-        name: 'Users',
+        name: 'Usuários',
         path: 'users',
         component: Users,
       },
       {
-        name: 'Users Create',
+        name: 'Criar Novo Usuário',
         path: 'users/create',
         component: UsersCreateEdit,
       },
       {
-        name: 'Users Edit',
+        name: 'Editar Usuário',
         path: 'users/edit/:userId',
         component: UsersCreateEdit,
       },
