@@ -8,9 +8,14 @@
            </h1>
            <ol class="breadcrumb">
               <li v-for="routeName in routesName" v-bind:class="{ active: routeName === $route.name }">
-                <router-link :to="{name: routeName}">
-                  <i class="fa" v-bind:class="routesIcon[routeName]"></i>{{routeName}}</a>
+                <router-link v-if="routeName !== $route.name" :to="{name: routeName}">
+                  <i class="fa" v-bind:class="routesIcon[routeName]"></i>
+                  {{routeName}}
                 </router-link>
+                <span v-else>
+                  <i class="fa" v-bind:class="routesIcon[routeName]"></i>
+                  {{routeName}}
+                </span>
               </li>
            </ol>
         </section>

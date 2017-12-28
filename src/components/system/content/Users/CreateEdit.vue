@@ -143,7 +143,7 @@ import {SAQUA_BACK} from '@/gateways/saqua_back';
        },
      },
      beforeMount() {
-       if(this.$route.name == 'Users Edit'){
+       if(this.$route.name == 'Editar Usuário'){
          SAQUA_BACK.get(`users/${this.$route.params.userId}`).then(response => {
            this.user = response.data;
            this.imageSrc = `${process.env.SAQUA_BACK_URI}/api/v1/users/${this.$route.params.userId}/avatar`;
