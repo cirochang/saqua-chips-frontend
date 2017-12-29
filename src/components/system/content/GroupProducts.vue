@@ -10,9 +10,9 @@
       </div>
       <div class="box-body">
 
-        <router-link :to="{name: 'Criar Novo Produto'}">
+        <router-link :to="{name: 'Criar Novo Grupo de Produtos'}">
           <a class="btn btn-app">
-            <i class="fa fa-plus"></i> Criar Novo Produto
+            <i class="fa fa-plus"></i> Criar Novo Grupo de Produtos
           </a>
         </router-link>
 
@@ -25,12 +25,12 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="product in products">
-                <td>{{product.name}}</td>
+              <tr v-for="groupProduct in groupProducts">
+                <td>{{groupProduct.name}}</td>
                 <td>
                   <div class="btn-group">
-                    <router-link tag="button" :to="{name: 'Editar Produto', params: { productId: product._id }}" type="button" class="btn btn-warning">Editar</router-link>
-                    <button type="button" class="btn btn-warning" v-on:click='removeProduct(product)'>Deletar</button>
+                    <router-link tag="button" :to="{name: 'Editar Grupo de Produtos', params: { groupProductId: groupProduct._id }}" type="button" class="btn btn-warning">Editar</router-link>
+                    <button type="button" class="btn btn-warning" v-on:click='removeGroupProduct(groupProduct)'>Deletar</button>
                   </div>
                 </td>
               </tr>
@@ -53,22 +53,22 @@ import swal from 'sweetalert'
 export default {
   data() {
     return {
-      products: {}
+      groupProducts: {}
     }
   },
   methods: {
-    refreshProducts() {
-      SAQUA_BACK.get('products').then(response => {
-        this.products = response.data;
+    refreshGroupProducts() {
+      SAQUA_BACK.get('group_products').then(response => {
+        this.groupProducts = response.data;
       })
       .catch(error => {
         console.error(error);
       });
     },
-    removeProduct(product) {
+    removeGroupProduct(groupProduct) {
       swal({
         title: "Tem certeza?",
-        text: `Deseja mesmo deletar o grupo de produtos ${products.name}?`,
+        text: `Deseja mesmo deletar o grupo de produtos ${groupProducts.name}?`,
         icon: "warning",
         dangerMode: true,
         buttons: {
@@ -78,9 +78,9 @@ export default {
       })
       .then(willDelete => {
         if (willDelete) {
-          SAQUA_BACK.delete(`products/${products._id}`).then(response => {
+          SAQUA_BACK.delete(`group_products/${groupProducts._id}`).then(response => {
             swal("Deletado!", "O Grupo de Produtos foi deletado com sucesso!", "success");
-            this.refreshProducts();
+            this.refreshGroupProducts();
           })
           .catch(error => {
             console.error(error);
@@ -91,7 +91,7 @@ export default {
     }
   },
   beforeMount: function () {
-    this.refreshProducts();
+    this.refreshGroupProducts();
   },
 }
 </script>

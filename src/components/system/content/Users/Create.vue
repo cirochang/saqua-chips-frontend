@@ -1,18 +1,8 @@
 <template>
-   <div id='v-content-users'>
-      <div class="content-wrapper">
-         <!-- Content Header (Page header) -->
-         <section class="content-header">
-            <h1>
-               {{this.page.title}}
-            </h1>
-            <ol class="breadcrumb">
-               <li class="active"><a href="#"><i class="fa fa-users"></i> Criar Novo Grupo de Produto</a></li>
-            </ol>
-         </section>
+
          <!-- Main content -->
          <section class="content">
-            <div class="box box-default">
+            <div class="box box-primary">
                <div class="box-header with-border">
                   <h3 class="box-title">Formulário</h3>
 
@@ -72,13 +62,12 @@
                </div>
                <!-- /.box-body -->
                <div class="box-footer">
-                 <button type="submit" v-on:click="page.submit.func()" class="btn btn-primary">{{page.submit.text}}</button>
+                 <button type="submit" v-on:click="createNewUser()" class="btn btn-primary">Criar</button>
                   Campos com * são obrigatórios.
                </div>
             </div>
          </section>
-      </div>
-   </div>
+
 </template>
 
 <script>
@@ -92,15 +81,7 @@ import {SAQUA_BACK} from '@/gateways/saqua_back';
          },
          avatar: null,
          imageSrc: null,
-         errors: {},
-         isCreatePage: true,
-         page: {
-           title: 'Criar Novo Usuário',
-           submit: {
-             func: this.createNewUser,
-             text: 'Criar'
-           }
-         }
+         errors: {},         
        }
      },
      methods: {
@@ -122,24 +103,6 @@ import {SAQUA_BACK} from '@/gateways/saqua_back';
            this.errors = err.response.data;
          })
        },
-       updateUser() {
-         const formData = new FormData();
-         for(var key in this.user) {
-           formData.append(key, this.user[key]);
-         }
-         formData.append('avatar', this.avatar);
-         SAQUA_BACK.put(`users/${this.$route.params.userId}`, formData).then(response => {
-           this.$notify({
-              group: 'system',
-              title: `Usuário Atualizado`,
-              text: `O usuário ${this.user.username} foi atualizado com sucesso!`
-            });
-            this.$router.push("/users");
-         }).catch(err => {
-           console.log(err);
-           this.errors = err.response.data;
-         })
-       },
        processImage: function(e) {
           this.avatar = e.target.files[0];
           var reader = new FileReader();
@@ -153,23 +116,7 @@ import {SAQUA_BACK} from '@/gateways/saqua_back';
        currentUser() {
          return this.$store.getters.currentUser;
        },
-     },
-     beforeMount() {
-       if(this.$route.name == 'Users Edit'){
-         SAQUA_BACK.get(`users/${this.$route.params.userId}`).then(response => {
-           this.user = response.data;
-           this.imageSrc = `${process.env.SAQUA_BACK_URI}/api/v1/users/${this.$route.params.userId}/avatar`;
-           this.page = {
-             title: 'Editar Usuário',
-             submit: {
-               func: this.updateUser,
-               text: 'Atualizar'
-             }
-           }
-         }).catch(err => {
-           console.log(err);
-         })
-       }
      }
+
    }
 </script>

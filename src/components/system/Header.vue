@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import 'moment';
+import moment from 'moment';
 
 export default {
 

@@ -21,6 +21,22 @@
               <i class="fa fa-dollar"></i> <span>Produtos</span>
             </router-link>
           </li>
+          <li class="treeview" v-if="currentUser.hasAccess('manager')" v-bind:class="{ active: hasUrlPath('group_products', 1), 'menu-open': hasUrlPath('group_products', 1) }">
+            <router-link :to="{name: 'Grupo de Produtos'}">
+              <i class="fa fa-users"></i> <span>Grupo de Produtos</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </router-link>
+            <ul class="treeview-menu">
+              <li v-bind:class="{ active: hasUrlPath('create', 2)}">
+                <router-link :to="{name: 'Criar Novo Grupo de Produtos'}">
+                  <i class="fa fa-circle-o"></i>
+                   Criar Novo Grupo de Produtos
+                 </router-link>
+               </li>
+            </ul>
+          </li>
           <li class="treeview" v-if="currentUser.hasAccess('manager')" v-bind:class="{ active: hasUrlPath('users', 1), 'menu-open': hasUrlPath('users', 1) }">
             <router-link :to="{name: 'Usuários'}">
               <i class="fa fa-users"></i> <span>Usuários</span>

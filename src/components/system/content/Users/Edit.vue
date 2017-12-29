@@ -2,7 +2,7 @@
 
          <!-- Main content -->
          <section class="content">
-            <div class="box box-default">
+            <div class="box box-warning">
                <div class="box-header with-border">
                   <h3 class="box-title">Formulário</h3>
 
@@ -62,7 +62,7 @@
                </div>
                <!-- /.box-body -->
                <div class="box-footer">
-                 <button type="submit" v-on:click="page.submit.func()" class="btn btn-primary">{{page.submit.text}}</button>
+                 <button type="submit" v-on:click="updateUser()" class="btn btn-primary">Atualizar</button>
                   Campos com * são obrigatórios.
                </div>
             </div>
@@ -82,34 +82,9 @@ import {SAQUA_BACK} from '@/gateways/saqua_back';
          avatar: null,
          imageSrc: null,
          errors: {},
-         isCreatePage: true,
-         page: {
-           submit: {
-             func: this.createNewUser,
-             text: 'Criar'
-           }
-         }
        }
      },
      methods: {
-       createNewUser() {
-         const formData = new FormData();
-         for(var key in this.user) {
-           formData.append(key, this.user[key]);
-         }
-         formData.append('avatar', this.avatar);
-         SAQUA_BACK.post('users', formData).then(response => {
-           this.$notify({
-              group: 'system',
-              title: `Novo Usuário Criado`,
-              text: `O usuário ${this.user.username} foi criado com sucesso!`
-            });
-            this.$router.push("/users");
-         }).catch(err => {
-           console.log(err);
-           this.errors = err.response.data;
-         })
-       },
        updateUser() {
          const formData = new FormData();
          for(var key in this.user) {
@@ -143,20 +118,13 @@ import {SAQUA_BACK} from '@/gateways/saqua_back';
        },
      },
      beforeMount() {
-       if(this.$route.name == 'Editar Usuário'){
-         SAQUA_BACK.get(`users/${this.$route.params.userId}`).then(response => {
-           this.user = response.data;
-           this.imageSrc = `${process.env.SAQUA_BACK_URI}/api/v1/users/${this.$route.params.userId}/avatar`;
-           this.page = {
-             submit: {
-               func: this.updateUser,
-               text: 'Atualizar'
-             }
-           }
-         }).catch(err => {
-           console.log(err);
-         })
-       }
+       SAQUA_BACK.get(`users/${this.$route.params.userId}`).then(response => {
+         this.user = response.data;
+         this.imageSrc = `${process.env.SAQUA_BACK_URI}/api/v1/users/${this.$route.params.userId}/avatar`;
+       }).catch(err => {
+         console.log(err);
+         this.$router.push("/users");
+       })
      }
    }
 </script>

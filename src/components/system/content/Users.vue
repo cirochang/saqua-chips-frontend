@@ -1,6 +1,6 @@
 <template>
   <section class="content">
-    <div class="box box-primary">
+    <div class="box box-default">
       <div class="box-header with-border">
         <h3 class="box-title">Tabela de Usuários</h3>
 
@@ -35,7 +35,7 @@
                 <td>{{formatDate(user.updated_at)}}</td>
                 <td>
                   <div class="btn-group">
-                    <router-link tag="button" :to="{name: 'Editar Usuário', params: { userId: user._id }}" type="button" class="btn btn-warning" v-on:click='editUser(user)'>Editar</router-link>
+                    <router-link tag="button" :to="{name: 'Editar Usuário', params: { userId: user._id }}" type="button" class="btn btn-warning">Editar</router-link>
                     <button type="button" class="btn btn-warning" v-on:click='removeUser(user)'>Deletar</button>
                   </div>
                 </td>
@@ -96,10 +96,6 @@ export default {
           })
         }
       });
-
-    },
-    editUser(){
-
     }
   },
   beforeMount: function () {
