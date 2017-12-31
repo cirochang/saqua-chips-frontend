@@ -17,86 +17,41 @@
               <ul class="timeline timeline-inverse">
                 <!-- timeline time label -->
                 <li class="time-label">
-                      <span class="bg-red">
-                        10 Feb. 2014
+                      <span class="bg-purple">
+                        Em Fila
                       </span>
                 </li>
-                <!-- /.timeline-label -->
-                <!-- timeline item -->
-                <li>
-                  <i class="fa fa-envelope bg-blue"></i>
+                <li v-for="demand in demands" class="animated bounceInRight" style="-webkit-animation-fill-mode: backwards;">
+                  <i class="fa fa-cutlery bg-purple"></i>
 
                   <div class="timeline-item">
-                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                    <span class="time"><i class="fa fa-clock-o"></i> {{formatDate(demand.createdAt)}}</span>
 
-                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                    <h3 class="timeline-header">Ticket: <b>{{demand.ticket}}</b></h3>
 
                     <div class="timeline-body">
-                      Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                      weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                      jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                      quora plaxo ideeli hulu weebly balihoo...
-                    </div>
-                    <div class="timeline-footer">
-                      <a class="btn btn-primary btn-xs">Read more</a>
-                      <a class="btn btn-danger btn-xs">Delete</a>
-                    </div>
-                  </div>
-                </li>
-                <!-- END timeline item -->
-                <!-- timeline item -->
-                <li>
-                  <i class="fa fa-user bg-aqua"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-
-                    <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
-                    </h3>
-                  </div>
-                </li>
-                <!-- END timeline item -->
-                <!-- timeline item -->
-                <li>
-                  <i class="fa fa-comments bg-yellow"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-
-                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                    <div class="timeline-body">
-                      Take me to your leader!
-                      Switzerland is small and neutral!
-                      We are more like Germany, ambitious and misunderstood!
-                    </div>
-                    <div class="timeline-footer">
-                      <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                    </div>
-                  </div>
-                </li>
-                <!-- END timeline item -->
-                <!-- timeline time label -->
-                <li class="time-label">
-                      <span class="bg-green">
-                        3 Jan. 2014
+                      <span v-for="product in demand.products">
+                        {{product.name}}</br>
+                        <img v-bind:src="avatarUrl(product, 'products')" alt="..." class="margin" width="150px" height="100px">
                       </span>
-                </li>
-                <!-- /.timeline-label -->
-                <!-- timeline item -->
-                <li>
-                  <i class="fa fa-camera bg-purple"></i>
-
-                  <div class="timeline-item">
-                    <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-
-                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                    <div class="timeline-body">
-                      <img src="http://placehold.it/150x100" alt="..." class="margin">
-                      <img src="http://placehold.it/150x100" alt="..." class="margin">
-                      <img src="http://placehold.it/150x100" alt="..." class="margin">
-                      <img src="http://placehold.it/150x100" alt="..." class="margin">
+                    </div>
+                    <div class="timeline-footer">
+                      <div class="btn-group">
+                        <button type="button" class="btn" v-bind:class="statusColor[demand.status]">{{statusNames[demand.status]}}</button>
+                        <button type="button" class="btn dropdown-toggle" v-bind:class="statusColor[demand.status]" data-toggle="dropdown" aria-expanded="true">
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a @click="updateStatus(demand, 'pending')" href="#">Pendente</a></li>
+                          <li><a @click="updateStatus(demand, 'doing')" href="#">Preparando</a></li>
+                          <li><a @click="updateStatus(demand, 'done')" href="#">Pronto para entrega</a></li>
+                          <li class="divider"></li>
+                          <li v-if="currentUser.hasAccess('manager')"><a @click="updateStatus(demand, 'finished')" href="#">Finalizado</a></li>
+                          <li class="divider"></li>
+                          <li v-if="currentUser.hasAccess('manager')"><a @click="updateStatus(demand, 'canceled')" href="#">Cancelado</a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -117,3 +72,66 @@
     </section>
 
 </template>
+
+<script>
+import {SAQUA_BACK} from '@/gateways/saqua_back';
+import moment from 'moment';
+
+export default {
+  data() {
+      return {
+          demands: {},
+          statusNames: {
+            'pending': 'Pendente',
+            'doing': 'Preparando',
+            'done': 'Pronto para entrega',
+            'finished': 'Finalizado',
+            'canceled': 'Cancelado'
+          },
+          statusColor: {
+            'pending': 'btn-warning',
+            'doing': 'btn-success',
+            'done': 'btn-primary',
+            'finished': 'btn-default',
+            'canceled': 'brn-danger'
+          }
+      }
+  },
+  methods: {
+    hasUrlPath(path_name, path_index) {
+      return path_name == this.$route.fullPath[0].children.split("/")[path_index];
+    },
+    avatarUrl(object, main_uri) {
+      return process.env.SAQUA_BACK_URI + "/api/v1/"+ main_uri +"/" + object._id + "/avatar";
+    },
+    formatDate(date) {
+      return moment(date).locale('pt-br').format('HH:mm:ss');
+    },
+    updateStatus(demand, status) {
+      demand.status = status;
+      SAQUA_BACK.put(`demands/${demand._id}`, demand).then(response => {
+        this.refreshDemands();
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    refreshDemands() {
+      SAQUA_BACK.get(`demands?status=pending,doing,done&sort_by=createAt,desc`).then(response => {
+        this.demands = response.data;
+      }).catch(err => {
+        console.log(err);
+        this.$router.push("/sell");
+      });
+    },
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters.currentUser;
+    },
+  },
+  beforeMount() {
+    this.refreshDemands();
+    setInterval(() => {this.refreshDemands();}, 3000);
+  }
+}
+</script>

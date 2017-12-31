@@ -68,7 +68,7 @@ export default {
     removeGroupProduct(groupProduct) {
       swal({
         title: "Tem certeza?",
-        text: `Deseja mesmo deletar o grupo de produtos ${groupProducts.name}?`,
+        text: `Deseja mesmo deletar o grupo de produtos ${groupProduct.name}?`,
         icon: "warning",
         dangerMode: true,
         buttons: {
@@ -78,7 +78,7 @@ export default {
       })
       .then(willDelete => {
         if (willDelete) {
-          SAQUA_BACK.delete(`group_products/${groupProducts._id}`).then(response => {
+          SAQUA_BACK.delete(`group_products/${groupProduct._id}`).then(response => {
             swal("Deletado!", "O Grupo de Produtos foi deletado com sucesso!", "success");
             this.refreshGroupProducts();
           })

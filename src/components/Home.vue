@@ -28,7 +28,7 @@ export default {
         immediate: true,
         handler(newVal, oldVal) {
           if(newVal.fullPath === '/')
-            this.vm.$router.push({ path: 'sell'});
+            this.vm.$router.push({ path: 'lastest_demands'});
         }
     },
     isLoggedIn: {

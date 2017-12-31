@@ -38,6 +38,7 @@ export default new Vuex.Store({
       return new Promise( (resolve, reject) => {
         SAQUA_BACK.post('authenticate', data).then(response => {
           localStorage.setItem("token", response.data.token);
+          SAQUA_BACK.defaults.headers['x-access-token'] =  response.data.token;
           SAQUA_BACK.defaults.headers = Object.assign({}, SAQUA_BACK.defaults.headers, {'x-access-token': response.data.token});
           commit(LOGIN_SUCCESS);
           resolve();
@@ -54,6 +55,7 @@ export default new Vuex.Store({
     },
     setCurrentUser({ commit }) {
       return new Promise( (resolve, reject) => {
+        console.log(SAQUA_BACK.defaults.headers);
         SAQUA_BACK.get('current_user').then(response => {
           commit(SET_CURRENT_USER, response.data);
           resolve();

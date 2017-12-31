@@ -22,11 +22,15 @@
               <thead>
               <tr>
                 <th>Nome</th>
+                <th>Preço</th>
+                <th>Grupo</th>
               </tr>
               </thead>
               <tbody>
               <tr v-for="product in products">
                 <td>{{product.name}}</td>
+                <td>{{product.price/100}}</td>
+                <td>{{product.groupProduct ? product.groupProduct.name : ''}}</td>
                 <td>
                   <div class="btn-group">
                     <router-link tag="button" :to="{name: 'Editar Produto', params: { productId: product._id }}" type="button" class="btn btn-warning">Editar</router-link>
@@ -53,7 +57,8 @@ import swal from 'sweetalert'
 export default {
   data() {
     return {
-      products: {}
+      products: {},
+      group_products: {}
     }
   },
   methods: {
@@ -68,7 +73,7 @@ export default {
     removeProduct(product) {
       swal({
         title: "Tem certeza?",
-        text: `Deseja mesmo deletar o grupo de produtos ${products.name}?`,
+        text: `Deseja mesmo deletar o produto ${product.name}?`,
         icon: "warning",
         dangerMode: true,
         buttons: {
@@ -78,8 +83,8 @@ export default {
       })
       .then(willDelete => {
         if (willDelete) {
-          SAQUA_BACK.delete(`products/${products._id}`).then(response => {
-            swal("Deletado!", "O Grupo de Produtos foi deletado com sucesso!", "success");
+          SAQUA_BACK.delete(`products/${product._id}`).then(response => {
+            swal("Deletado!", "O Produto foi deletado com sucesso!", "success");
             this.refreshProducts();
           })
           .catch(error => {

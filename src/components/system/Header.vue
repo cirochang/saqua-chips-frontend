@@ -33,30 +33,17 @@
                 <li class="user-header">
                   <img src="http://pudim.com.br/pudim.jpg" class="img-circle" alt="User Image">
                   <p>
-                    {{currentUser.firstName}} {{currentUser.lastName}} - Web Developer
+                    {{currentUser.firstName}} {{currentUser.lastName}}
                     <small>Membro desde {{ currentUser.created_at }}</small>
                   </p>
                 </li>
                 <!-- Menu Body -->
                 <li class="user-body">
-                  <div class="row">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </div>
+
                   <!-- /.row -->
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                  <div class="pull-left">
-                    <a href="#" class="btn btn-default btn-flat">Perfil</a>
-                  </div>
                   <div class="pull-right" v-on:click="logout()">
                     <a href="#" class="btn btn-default btn-flat">Sair</a>
                   </div>

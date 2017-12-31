@@ -9,7 +9,7 @@
             </div>
             <div class="box-body">
               <div class="embed-responsive embed-responsive-16by9">
-                <img v-bind:src="avatarUrl(groupProduct, 'group_products')" alt="Third slide">              </div>
+                <img v-bind:src="avatarUrl(groupProduct, 'group_products')" width="100%" alt="Third slide">              </div>
             </div>
           </div>
         </router-link>
@@ -40,7 +40,7 @@ export default {
       });
     },
     avatarUrl(object, main_uri) {
-      return process.env.SAQUA_BACK_URI + "/api/v1/"+ main_uri +"/" + object.id + "/avatar";
+      return process.env.SAQUA_BACK_URI + "/api/v1/"+ main_uri +"/" + object._id + "/avatar";
     },
   },
   beforeMount: function () {

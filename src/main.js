@@ -17,6 +17,7 @@ import Home from './components/Home.vue'
 import System from './components/System.vue'
 import Sell from './components/system/content/Sell.vue'
 import SellSelectProduct from './components/system/content/Sell/selectProduct.vue'
+import SellSelectTicket from './components/system/content/Sell/selectTicket.vue'
 import LastestDemands from './components/system/content/LastestDemands.vue'
 import Users from './components/system/content/Users.vue'
 import UsersCreate from './components/system/content/Users/Create.vue'
@@ -48,6 +49,11 @@ const routes = [
         name: 'Caixa Seleção de Produto',
         path: 'sell/group_product/:groupProductId',
         component: SellSelectProduct
+      },
+      {
+        name: 'Caixa Seleção de Ticket',
+        path: 'sell/group_product/:groupProductId/product/:productId',
+        component: SellSelectTicket
       },
       {
         name: 'Últimas Demandas',

@@ -20,7 +20,7 @@
                   <div class="form-group" v-bind:class="{'has-error': errors.groupProduct }">
                      <label>Grupo de Produtos*</label>
                      <select class="form-control" v-model="product.groupProduct">
-                        <option v-for="groupProduct in groupProducts" v-bind:value="groupProduct.id">groupProduct.name</option>
+                        <option v-for="groupProduct in groupProducts" v-bind:value="groupProduct._id">groupProduct.name</option>
                      </select>
                      <span class="help-block" v-if='errors.groupProduct'>{{errors.groupProduct.message}}</span>
                   </div>
