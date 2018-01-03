@@ -120,7 +120,7 @@ import {SAQUA_BACK} from '@/gateways/saqua_back';
      beforeMount() {
        SAQUA_BACK.get(`users/${this.$route.params.userId}`).then(response => {
          this.user = response.data;
-         this.imageSrc = `${process.env.SAQUA_BACK_URI}/api/v1/users/${this.$route.params.userId}/avatar`;
+         this.imageSrc = `${process.env.SAQUA_BACK_URI}/users/${this.$route.params.userId}/avatar`;
        }).catch(err => {
          console.log(err);
          this.$router.push("/users");

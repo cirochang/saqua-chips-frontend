@@ -100,7 +100,7 @@ import {SAQUA_BACK} from '@/gateways/saqua_back';
      beforeMount() {
        SAQUA_BACK.get(`products/${this.$route.params.productId}`).then(response => {
          this.product = response.data;
-         this.imageSrc = `${process.env.SAQUA_BACK_URI}/api/v1/products/${this.$route.params.productId}/avatar`;
+         this.imageSrc = `${process.env.SAQUA_BACK_URI}/products/${this.$route.params.productId}/avatar`;
          SAQUA_BACK.get(`group_products`).then(response => {
            this.groupProducts = response.data;
          }).catch(err => {

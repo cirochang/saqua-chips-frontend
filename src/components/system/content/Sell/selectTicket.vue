@@ -194,8 +194,7 @@ export default {
       return path_name == this.$route.fullPath[0].children.split("/")[path_index];
     },
     avatarUrl(object, main_uri) {
-      console.log(object);
-      return process.env.SAQUA_BACK_URI + "/api/v1/"+ main_uri +"/" + object._id + "/avatar";
+      return `${process.env.SAQUA_BACK_URI}/${main_uri}/${object._id}/avatar`;
     },
     addNumTicket(numStr) {
       this.demand.ticket += numStr;

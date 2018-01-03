@@ -40,7 +40,7 @@ export default {
       });
     },
     avatarUrl(object, main_uri) {
-      return process.env.SAQUA_BACK_URI + "/api/v1/"+ main_uri +"/" + object._id + "/avatar";
+      return `${process.env.SAQUA_BACK_URI}/${main_uri}/${object._id}/avatar`;
     },
   },
   beforeMount: function () {

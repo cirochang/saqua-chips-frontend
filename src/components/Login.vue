@@ -56,7 +56,7 @@
         }).catch((error) => {
           this.classErrPass['has-error'] = true;
           this.password = "";
-          if(error.message == 'Network Error'){
+          if(error.response && error.response.status === 404){
             this.errPassMsg = 'O Sistema de backend está desligado';
           }else{
             this.errPassMsg = error.response.data;
