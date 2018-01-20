@@ -1,29 +1,24 @@
 <template>
   <div class="login-box">
     <div class="login-logo">
-      <a href="../../index2.html"><b>Saqua</b>Chips</a>
+      <b>Admin</b>LTE
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
       <p class="login-box-msg">Logue-se para iniciar sua sessão</p>
 
-      <form action="../../index2.html" method="post">
+      <form @submit.prevent="login({ username, password })" data-toggle="validator">
         <div class="form-group has-feedback">
-          <input type="email" class="form-control" placeholder="Usuário">
+          <input type="text" class="form-control" placeholder="Usuário" v-model="username">
           <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
-        <div class="form-group has-feedback">
-          <input type="password" class="form-control" placeholder="Senha">
+        <div class="form-group has-feedback" v-bind:class="classErrPass">
+          <input type="password" class="form-control" placeholder="Senha" v-model="password">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <span class="help-block red">{{errPassMsg}}</span>
         </div>
         <div class="row">
-          <div class="col-xs-8">
-            <div class="checkbox icheck">
-              <label>
-                <input type="checkbox"> Lembrar de mim
-              </label>
-            </div>
-          </div>
+
           <!-- /.col -->
           <div class="col-xs-4">
             <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
@@ -41,5 +36,35 @@
 
   export default {
 
+    data() {
+      return {
+        username: "",
+        password: "",
+        classErrPass: {
+          'has-error': false,
+        },
+        errPassMsg: "",
+      }
+    },
+    methods: {
+      login() {
+        this.$store.dispatch("login", {
+          username: this.username,
+          password: this.password
+        }).then(() => {
+          this.$router.push("/");
+        }).catch((error) => {
+          this.classErrPass['has-error'] = true;
+          this.password = "";
+          if(error.response && error.response.status === 404){
+            this.errPassMsg = 'O Sistema de backend está desligado';
+          }else{
+            this.errPassMsg = error.response.data;
+          }
+        });
+      }
+    }
+
   }
+
 </script>

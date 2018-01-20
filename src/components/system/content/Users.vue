@@ -2,7 +2,7 @@
   <section class="content">
     <div class="box box-default">
       <div class="box-header with-border">
-        <h3 class="box-title">Tabela de Grupo de Produtos</h3>
+        <h3 class="box-title">Tabela de Usuários</h3>
 
         <div class="box-tools pull-right">
 
@@ -10,9 +10,9 @@
       </div>
       <div class="box-body">
 
-        <router-link :to="{name: 'Criar Novo Produto'}">
+        <router-link :to="{name: 'Criar Novo Usuário'}">
           <a class="btn btn-app">
-            <i class="fa fa-plus"></i> Criar Novo Produto
+            <i class="fa fa-plus"></i> Criar Novo Usuário
           </a>
         </router-link>
 
@@ -22,19 +22,21 @@
               <thead>
               <tr>
                 <th>Nome</th>
-                <th>Preço</th>
-                <th>Grupo</th>
+                <th>Username</th>
+                <th>Data de Criação</th>
+                <th>Última atualização</th>
               </tr>
               </thead>
               <tbody>
-              <tr v-for="product in products">
-                <td>{{product.name}}</td>
-                <td>{{product.price/100}}</td>
-                <td>{{product.groupProduct ? product.groupProduct.name : ''}}</td>
+              <tr v-for="user in users">
+                <td>{{user.firstName}} {{user.lastName}}</td>
+                <td>{{user.username}}</td>
+                <td>{{formatDate(user.created_at)}}</td>
+                <td>{{formatDate(user.updated_at)}}</td>
                 <td>
                   <div class="btn-group">
-                    <router-link tag="button" :to="{name: 'Editar Produto', params: { productId: product._id }}" type="button" class="btn btn-warning">Editar</router-link>
-                    <button type="button" class="btn btn-warning" v-on:click='removeProduct(product)'>Deletar</button>
+                    <router-link tag="button" :to="{name: 'Editar Usuário', params: { userId: user._id }}" type="button" class="btn btn-warning">Editar</router-link>
+                    <button type="button" class="btn btn-warning" v-on:click='removeUser(user)'>Deletar</button>
                   </div>
                 </td>
               </tr>
@@ -57,23 +59,25 @@ import swal from 'sweetalert'
 export default {
   data() {
     return {
-      products: {},
-      group_products: {}
+      users: {}
     }
   },
   methods: {
-    refreshProducts() {
-      SAQUA_BACK.get('products').then(response => {
-        this.products = response.data;
+    formatDate(date) {
+      return moment(date).locale('pt-br').format('DD/MM/YY, HH:mm:ss');
+    },
+    refreshUsers() {
+      SAQUA_BACK.get('users').then(response => {
+        this.users = response.data;
       })
       .catch(error => {
         console.error(error);
       });
     },
-    removeProduct(product) {
+    removeUser(user) {
       swal({
         title: "Tem certeza?",
-        text: `Deseja mesmo deletar o produto ${product.name}?`,
+        text: `Deseja mesmo deletar o usuário ${user.username}?`,
         icon: "warning",
         dangerMode: true,
         buttons: {
@@ -83,20 +87,19 @@ export default {
       })
       .then(willDelete => {
         if (willDelete) {
-          SAQUA_BACK.delete(`products/${product._id}`).then(response => {
-            swal("Deletado!", "O Produto foi deletado com sucesso!", "success");
-            this.refreshProducts();
+          SAQUA_BACK.delete(`users/${user._id}`).then(response => {
+            swal("Deletado!", "O usuário foi deletado com sucesso!", "success");
+            this.refreshUsers();
           })
           .catch(error => {
             console.error(error);
           })
         }
       });
-
     }
   },
   beforeMount: function () {
-    this.refreshProducts();
+    this.refreshUsers();
   },
 }
 </script>

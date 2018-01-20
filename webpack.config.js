@@ -1,5 +1,7 @@
-var path = require('path')
-var webpack = require('webpack')
+var path = require('path');
+var webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 
 module.exports = {
   entry: './src/main.js',
@@ -15,6 +17,9 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
+            js: {
+               loader: 'babel-loader'
+            },
           }
           // other vue-loader options go here
         }
@@ -30,13 +35,19 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
-      }
+      },
+      {
+        test: /\.css$/, // Only .css files
+        loader: "style-loader!css-loader"
+      },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
     ]
   },
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      jquery: "jquery/src/jquery"
+      jquery: "jquery/src/jquery",
+      '@': path.resolve('src'),
     }
   },
   devServer: {
@@ -47,6 +58,9 @@ module.exports = {
   performance: {
     hints: false
   },
+  node: {
+    fs: "empty"
+  },
   devtool: '#eval-source-map'
 }
 
@@ -55,18 +69,17 @@ if (process.env.NODE_ENV === 'production') {
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
+      'process.env': require('./env-prod')
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
+    new UglifyJsPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
   ])
+}else{
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': require('./env-dev')
+    })
+  ]);
 }
