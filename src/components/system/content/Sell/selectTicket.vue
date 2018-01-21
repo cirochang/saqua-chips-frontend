@@ -2,18 +2,6 @@
 
   <section class="content">
 
-    <div class="col-md-3">
-        <div class="box box-solid">
-          <div class="box-header with-border">
-            <h3 class="box-title">{{this.demand.products[0].name}}</h3>
-          </div>
-          <div class="box-body">
-            <div class="embed-responsive embed-responsive-16by9">
-              <img v-bind:src="avatarUrl(this.demand.products[0], 'products')" width="100%" alt="Third slide">              </div>
-          </div>
-        </div>
-    </div>
-
         <div id="calculator">
         	<!-- Screen and clear key -->
         	<div class="top">

@@ -33,7 +33,7 @@ export default {
           routesName: [],
           routesIcon: {
             'Usuários': 'fa-users',
-            'Produtos': 'fa-dollar',
+            'Produtos': 'fa fa-cutlery',
             'Caixa': 'fa-dollar'
           }
       }
@@ -47,6 +47,10 @@ export default {
     $route: {
         immediate: true,
         handler(newVal, oldVal) {
+          //fix bug from footer
+          setTimeout(function() {
+            $(window).resize();
+          }, 100);
           //recursive function
           this.routesName = [];
           var vm = this.vm;

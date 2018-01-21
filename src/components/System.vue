@@ -27,13 +27,6 @@ export default {
     'v-pre-content': PreContent
   },
   beforeCreate: function () {
-    $(window).on('load', function() {
-        setTimeout(function() {
-          console.log(jQuery);
-          $(window).resize();
-
-        }, 10);
-    });
     this.$store.dispatch("setCurrentUser").then(() => {
       this.userIsSet = true;
     }).catch((error) => {

@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --disable-host-check --hot --inline --port 8081 --host 0.0.0.0",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "build": ". scripts/build.sh",
+    "deploy": "npm run build && . scripts/deploy.sh"
   },
   "dependencies": {
     "admin-lte": "^2.4.2",
