@@ -1,7 +1,7 @@
 <template>
   <div class="login-box">
     <div class="login-logo">
-      <b>Admin</b>LTE
+      <b>Admin</b>LTEA
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -9,7 +9,7 @@
 
       <form @submit.prevent="login({ username, password })" data-toggle="validator">
         <div class="form-group has-feedback">
-          <input type="text" class="form-control" placeholder="Usuário" v-model="username">
+          <input autocapitalize="off" autocomplete="on" type="text" class="form-control" placeholder="Usuário" v-model="username">
           <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback" v-bind:class="classErrPass">

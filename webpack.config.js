@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
 
 module.exports = {
@@ -53,7 +54,8 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    publicPath: '/'
   },
   performance: {
     hints: false
@@ -74,12 +76,25 @@ if (process.env.NODE_ENV === 'production') {
     new UglifyJsPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    })
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jquery: 'jquery',
+      'window.jQuery': 'jquery',
+      jQuery: 'jquery'
+    }),
   ])
 }else{
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': require('./env-dev')
-    })
+    }),
+    new WriteFilePlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jquery: 'jquery',
+      'window.jQuery': 'jquery',
+      jQuery: 'jquery'
+    }),
   ]);
 }

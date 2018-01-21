@@ -1,60 +1,57 @@
 <template>
-  <section class="content">
-    <div id="calculator">
-	<!-- Screen and clear key -->
-	<div class="top">
-		<span class="clear" @click="resetNumTicket()">C</span>
-		<div class="screen">{{demand.ticket}}</div>
-	</div>
 
-	<div class="keys">
-		<!-- operators and other keys -->
-		<span @click="addNumTicket('7')">7</span>
-		<span @click="addNumTicket('8')">8</span>
-		<span @click="addNumTicket('9')">9</span>
-		<span @click="addNumTicket('4')">4</span>
-		<span @click="addNumTicket('5')">5</span>
-		<span @click="addNumTicket('6')">6</span>
-		<span @click="addNumTicket('1')">1</span>
-		<span @click="addNumTicket('2')">2</span>
-		<span @click="addNumTicket('3')">3</span>
-    <span></span>
-		<span @click="addNumTicket('0')">0</span>
-		<span></span>
-		<span class="eval" @click="createDemand()">Ok</span>
-	</div>
-</div>
+  <section class="content">
+
+    <div class="col-md-3">
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <h3 class="box-title">{{this.demand.products[0].name}}</h3>
+          </div>
+          <div class="box-body">
+            <div class="embed-responsive embed-responsive-16by9">
+              <img v-bind:src="avatarUrl(this.demand.products[0], 'products')" width="100%" alt="Third slide">              </div>
+          </div>
+        </div>
+    </div>
+
+        <div id="calculator">
+        	<!-- Screen and clear key -->
+        	<div class="top">
+        		<span class="clear" @click="resetNumTicket()">C</span>
+        		<div class="screen">{{demand.ticket}}</div>
+        	</div>
+
+        	<div class="keys">
+        		<!-- operators and other keys -->
+        		<span @click="addNumTicket('7')">7</span>
+        		<span @click="addNumTicket('8')">8</span>
+        		<span @click="addNumTicket('9')">9</span>
+        		<span @click="addNumTicket('4')">4</span>
+        		<span @click="addNumTicket('5')">5</span>
+        		<span @click="addNumTicket('6')">6</span>
+        		<span @click="addNumTicket('1')">1</span>
+        		<span @click="addNumTicket('2')">2</span>
+        		<span @click="addNumTicket('3')">3</span>
+            <span></span>
+        		<span @click="addNumTicket('0')">0</span>
+        		<span></span>
+        		<span class="eval" @click="createDemand()">Ok</span>
+        	</div>
+        </div>
 
   </section>
+
 </template>
 
 <style scoped>
-/* Basic reset */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
 
-	/* Better text styling */
-	font: bold 14px Arial, sans-serif;
-}
-
-/* Finally adding some IE9 fallbacks for gradients to finish things up */
-
-/* A nice BG gradient */
-html {
-	height: 100%;
-	background: white;
-	background: radial-gradient(circle, #fff 20%, #ccc);
-	background-size: cover;
-}
 
 /* Using box shadows to create 3D effects */
 #calculator {
 	width: 325px;
 	height: auto;
 
-	margin: 100px auto;
+  margin: 10px auto;
 	padding: 20px 20px 9px;
 
 	background: #9dd2ea;

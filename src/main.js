@@ -1,20 +1,8 @@
 // Global Variables
-window.axios = require('axios');
-window.jQuery = require('jquery');
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-
-require('font-awesome/css/font-awesome.min.css');
-require('bootstrap/dist/css/bootstrap.min.css');
-require('admin-lte/dist/css/AdminLTE.min.css');
-require('admin-lte/dist/css/skins/_all-skins.min.css');
-require('animate.css/animate.min.css');
-require('./assets/css/google-fonts.css');
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VBClass from 'vue-body-class';
-import jquery from 'jquery';
 import bootstrap from 'bootstrap';
 import adminlte from 'admin-lte';
 import Notifications from 'vue-notification';
@@ -39,6 +27,18 @@ import ProductsCreate from './components/system/content/Products/Create.vue';
 import ProductsEdit from './components/system/content/Products/Edit.vue';
 
 import store from './store';
+
+window.axios = require('axios');
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+
+require('font-awesome/css/font-awesome.min.css');
+require('bootstrap/dist/css/bootstrap.min.css');
+require('admin-lte/dist/css/AdminLTE.min.css');
+require('admin-lte/dist/css/skins/_all-skins.min.css');
+require('animate.css/animate.min.css');
+require('./assets/css/google-fonts.css');
+require('./assets/css/main.css')
 
 Vue.use(Notifications);
 Vue.use(VueRouter);
@@ -128,7 +128,7 @@ const router = new VueRouter({
 Vue.use(VBClass, router);
 
 // Instantiate application to the DOM
-new Vue({
+const app = new Vue({
     router,
     el: '#app',
     store,
