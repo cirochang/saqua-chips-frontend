@@ -3,4 +3,5 @@ ssh -i ~/.ssh/id_rsa pi@10.3.141.1 <<'ENDSSH'
 rm -rf saqua-chips-frontend
 mkdir saqua-chips-frontend
 unzip -o ~/saqua-chips-frontend.zip -d ~/saqua-chips-frontend/
+rm saqua-chips-frontend.zip
 ENDSSH
