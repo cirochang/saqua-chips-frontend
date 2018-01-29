@@ -1,14 +1,15 @@
 <template>
   <section class="content">
       <div class="col-md-3" v-for="product in products">
-        <router-link :to="{name: 'Caixa Seleção de Ticket', params: { productId: product._id }}">
+        <router-link :to="{name: 'Caixa Seleção de Senha', params: { productId: product._id }}">
           <div class="box box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">{{product.name}}</h3>
             </div>
             <div class="box-body">
               <div class="embed-responsive embed-responsive-16by9">
-                <img v-bind:src="avatarUrl(product, 'products')" width="100%" alt="Third slide">              </div>
+                <img v-bind:src="avatarUrl(product, 'products')" width="100%" alt="Third slide">
+              </div>
             </div>
           </div>
         </router-link>

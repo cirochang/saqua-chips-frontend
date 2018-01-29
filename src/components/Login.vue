@@ -1,7 +1,7 @@
 <template>
   <div class="login-box">
     <div class="login-logo">
-      <b>Admin</b>LTEA
+      <b>Saqua</b>Chips
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

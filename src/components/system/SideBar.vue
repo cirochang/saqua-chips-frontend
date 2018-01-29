@@ -8,7 +8,12 @@
           <li class="header">NAVEGAÇÃO PRINCIPAL</li>
           <li class="treeview" v-bind:class="{ active: hasUrlPath('lastest_demands', 1)}">
             <router-link :to="{name: 'Últimas Demandas'}">
-              <i class="fa fa-th-list"></i> <span>Últimos Pedidos</span>
+              <i class="fa fa-th"></i> <span>Últimos Pedidos</span>
+            </router-link>
+          </li>
+          <li class="treeview" v-if="currentUser.hasAccess('director')" v-bind:class="{ active: hasUrlPath('history_demands', 1)}">
+            <router-link :to="{name: 'Histórico de Demandas'}">
+              <i class="fa fa-th-list"></i> <span>Histórico de Demandas</span>
             </router-link>
           </li>
           <li class="treeview" v-if="currentUser.hasAccess('manager')" v-bind:class="{ active: hasUrlPath('sell', 1) }">

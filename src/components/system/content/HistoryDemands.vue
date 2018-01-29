@@ -1,39 +1,44 @@
 <template>
-  <section class="content">
-    <div class="row">
-      <div class="col-md-3" v-for="(demand, index) in demands">
-        <span v-for="product in demand.products">
-          <div class="box box-solid bounceIn animated" style="-webkit-animation-fill-mode: backwards;">
-            <div class="box-header with-border">
-              <h3 class="box-title">{{product.name}}</h3>
 
-              <div class="box-tools pull-right">
-                <i class="fa fa-clock-o"></i> {{formatDate(demand.createdAt)}}
-              </div>
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+        <div class="col-xs-12">
+          <!-- interactive chart -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <i class="fa fa-bar-chart-o"></i>
+
+              <h3 class="box-title">Últimos Pedidos de Hoje</h3>
+
             </div>
             <div class="box-body">
-              <div class="embed-responsive embed-responsive-16by9">
-                <img v-bind:src="avatarUrl(product, 'products')" width="100%" alt="Third slide">
-              </div>
-            </div>
+              <ul class="timeline timeline-inverse">
+                <!-- timeline time label -->
+                <li class="time-label">
+                      <span class="bg-purple">
+                        Em Fila
+                      </span>
+                </li>
+                <li v-for="demand in demands" class="animated bounceInRight" style="-webkit-animation-fill-mode: backwards;">
+                  <i class="fa fa-cutlery bg-purple"></i>
 
-            <div class="box-footer">
-              <div class="row">
-                <div class="col-sm-6 col-xs-6">
-                  <div class="description-block border-right">
-                    <h5 class="description-text">SENHA</h5>
-                    <span class="description-header" style="font-size: 30px;">{{demand.ticket}}</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-6 col-xs-6">
-                  <div class="description-block border-right">
-                    <h5 class="description-text">Status</h5>
-                    <span class="description-header">
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> {{formatDate(demand.createdAt)}}</span>
+
+                    <h3 class="timeline-header">Senha: <b>{{demand.ticket}}</b></h3>
+
+                    <div class="timeline-body">
+                      <span v-for="product in demand.products">
+                        {{product.name}}</br>
+                        <img v-bind:src="avatarUrl(product, 'products')" alt="..." class="margin" width="150px" height="100px">
+                      </span>
+                    </div>
+                    <div class="timeline-footer">
                       <div class="btn-group">
+                        <button type="button" class="btn" v-bind:class="statusColor[demand.status]">{{statusNames[demand.status]}}</button>
                         <button type="button" class="btn dropdown-toggle" v-bind:class="statusColor[demand.status]" data-toggle="dropdown" aria-expanded="true">
-                          {{statusNames[demand.status]}}
                           <span class="caret"></span>
                           <span class="sr-only">Toggle Dropdown</span>
                         </button>
@@ -47,26 +52,26 @@
                           <li v-if="currentUser.hasAccess('manager')"><a @click="updateStatus(demand, 'canceled')" href="#">Cancelado</a></li>
                         </ul>
                       </div>
-                    </span>
+                    </div>
                   </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-
-              </div>
-              <!-- /.row -->
+                </li>
+                <!-- END timeline item -->
+                <li>
+                  <i class="fa fa-clock-o bg-gray"></i>
+                </li>
+              </ul>
             </div>
-
-
+            <!-- /.box-body-->
           </div>
-        </span>
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col -->
       </div>
-    </div>
-    <br></br><br></br>
 
-  </section>
+    </section>
+
 </template>
-
 
 <script>
 import {SAQUA_BACK} from '@/gateways/saqua_back';
@@ -100,7 +105,7 @@ export default {
       return `${process.env.SAQUA_BACK_URI}/${main_uri}/${object._id}/avatar`;
     },
     formatDate(date) {
-      return moment(date).locale('pt-br').format('HH:mm');
+      return moment(date).locale('pt-br').format('HH:mm:ss');
     },
     updateStatus(demand, status) {
       demand.status = status;
@@ -117,12 +122,7 @@ export default {
         }).then(willCancel => {
           if (willCancel) {
             SAQUA_BACK.put(`demands/${demand._id}`, demand).then(response => {
-              this.$notify({
-                 group: 'system',
-                 type: 'warn',
-                 title: `Demanda ${demand.ticket} cancelada`,
-                 text: `A demanda foi cancelada com sucesso!`
-               });
+              swal("Cancelada!", "A demanda foi cancelada com Sucesso!", "success");
               this.refreshDemands();
             }).catch(err => {
               console.log(err);
@@ -131,13 +131,6 @@ export default {
         });
       }else{
         SAQUA_BACK.put(`demands/${demand._id}`, demand).then(response => {
-          if (status==='finished') {
-            this.$notify({
-               group: 'system',
-               title: `Demanda ${demand.ticket} finalizada`,
-               text: `A demanda foi finalizada com sucesso!`
-             });
-          }
           this.refreshDemands();
         }).catch(err => {
           console.log(err);
@@ -145,7 +138,7 @@ export default {
       }
     },
     refreshDemands() {
-      SAQUA_BACK.get(`demands?status=pending,doing,done&sort_by=createAt,asc`).then(response => {
+      SAQUA_BACK.get(`demands?sort_by=createAt,desc`).then(response => {
         this.demands = response.data;
       }).catch(err => {
         console.log(err);
@@ -160,11 +153,7 @@ export default {
   },
   beforeMount() {
     this.refreshDemands();
-    this.interval = setInterval(() => {this.refreshDemands();}, 3000);
-  },
-
-  beforeDestroy: function(){
-    clearInterval(this.interval);
+    setInterval(() => {this.refreshDemands();}, 3000);
   }
 }
 </script>

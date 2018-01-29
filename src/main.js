@@ -16,6 +16,7 @@ import Sell from './components/system/content/Sell.vue';
 import SellSelectProduct from './components/system/content/Sell/selectProduct.vue';
 import SellSelectTicket from './components/system/content/Sell/selectTicket.vue';
 import LastestDemands from './components/system/content/LastestDemands.vue';
+import HistoryDemands from './components/system/content/HistoryDemands.vue';
 import Users from './components/system/content/Users.vue';
 import UsersCreate from './components/system/content/Users/Create.vue';
 import UsersEdit from './components/system/content/Users/Edit.vue';
@@ -60,7 +61,7 @@ const routes = [
         component: SellSelectProduct
       },
       {
-        name: 'Caixa Seleção de Ticket',
+        name: 'Caixa Seleção de Senha',
         path: 'sell/group_product/:groupProductId/product/:productId',
         component: SellSelectTicket
       },
@@ -68,6 +69,11 @@ const routes = [
         name: 'Últimas Demandas',
         path: 'lastest_demands',
         component: LastestDemands
+      },
+      {
+        name: 'Histórico de Demandas',
+        path: 'history_demands',
+        component: HistoryDemands
       },
       // USERS
       {
