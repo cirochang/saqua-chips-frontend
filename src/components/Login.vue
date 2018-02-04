@@ -1,7 +1,7 @@
 <template>
   <div class="login-box">
     <div class="login-logo">
-      <b>Saqua</b>Chips
+      <b>Saqua</b>Chips <span style='font-size: 12px;'>{{this.getVersion}}</span>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import PkgJson from '@/../package.json';
 
   export default {
 
@@ -48,6 +49,7 @@
     },
     methods: {
       login() {
+        console.log(process.env.npm_package_version);
         this.$store.dispatch("login", {
           username: this.username,
           password: this.password
@@ -63,8 +65,12 @@
           }
         });
       }
+    },
+    computed: {
+      getVersion() {
+        return PkgJson.version;
+      }
     }
-
   }
 
 </script>

@@ -153,7 +153,10 @@ export default {
   },
   beforeMount() {
     this.refreshDemands();
-    setInterval(() => {this.refreshDemands();}, 3000);
+    this.interval = setInterval(() => {this.refreshDemands();}, 3000);
+  },
+  beforeDestroy: function(){
+    clearInterval(this.interval);
   }
 }
 </script>
