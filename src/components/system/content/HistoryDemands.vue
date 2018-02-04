@@ -105,7 +105,7 @@ export default {
       return `${process.env.SAQUA_BACK_URI}/${main_uri}/${object._id}/avatar`;
     },
     formatDate(date) {
-      return moment(date).locale('pt-br').format('HH:mm:ss');
+      return moment(date).local().locale('pt-br').format('DD/MM/YY - HH:mm:ss');
     },
     updateStatus(demand, status) {
       demand.status = status;
