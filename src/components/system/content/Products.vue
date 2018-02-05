@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     refreshProducts() {
-      SAQUA_BACK.get('products').then(response => {
+      SAQUA_BACK.get('products?deleted=false').then(response => {
         this.products = response.data;
       })
       .catch(error => {

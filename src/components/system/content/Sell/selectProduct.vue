@@ -36,7 +36,7 @@ export default {
     },
   },
   beforeMount() {
-    SAQUA_BACK.get(`products?groupProduct=${this.$route.params.groupProductId}`).then(response => {
+    SAQUA_BACK.get(`products?groupProduct=${this.$route.params.groupProductId}&deleted=false`).then(response => {
       this.products = response.data;
     }).catch(err => {
       console.log(err);
